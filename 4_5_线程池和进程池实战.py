@@ -6,7 +6,7 @@ from lxml import etree
 import csv
 from concurrent.futures import ThreadPoolExecutor
 
-f = open("价格.csv", mode="w", encoding="utf-8")
+f = open("database/"+"价格.csv", mode="w", encoding="utf-8")
 csvWriter = csv.writer(f)
 
 

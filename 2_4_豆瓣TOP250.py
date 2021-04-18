@@ -19,7 +19,7 @@ obj = re.compile(r'<li>.*?<div class="item">.*?<span class="title">(?P<name>.*?)
                  r'<span class="rating_num" property="v:average">(?P<average>.*?)</span>.*?<span>(?P<people>.*?)人评价</span>', re.S)
 
 result = obj.finditer(page_content)
-f = open("data.csv", mode="w", encoding="utf-8")
+f = open("database/"+"豆瓣TOP.csv", mode="w", encoding="utf-8")
 csvwrite = csv.writer(f)
 for it in result:
     # print(it.group("name"))
