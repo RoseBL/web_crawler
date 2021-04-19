@@ -26,5 +26,5 @@ systemTime = dic["systemTime"]
 srcUrl = srcUrl.replace(systemTime, f"cont-{contId}")
 print(srcUrl)
 
-with open("a.mp4", mode="wb") as f:
+with open("database/videos/"+"a.mp4", mode="wb") as f:
     f.write(requests.get(srcUrl).content)
