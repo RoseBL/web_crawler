@@ -24,7 +24,7 @@ async def aiodownload(cid, b_id, title):
         async with session.get(url) as resp:
             dic = await resp.json()
             async with aiofiles.open("database/novel/"+title+".txt", mode="w", encoding="utf-8") as f:
-                await f.write(dic["data"]["novel"]["content"])  # 吧小说内容写入
+                await f.write(dic["data"]["novel"]["content"])  # 把小说内容写入
 
 
 async def getCatalog(url):
