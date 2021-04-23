@@ -39,7 +39,7 @@ async def aiodownload(url):
 async def main():
     tasks = []
     for url in urls:
-        tasks.append(aiodownload(url))
+        tasks.append(asyncio.create_task(aiodownload(url)))
     await asyncio.wait(tasks)
 
 

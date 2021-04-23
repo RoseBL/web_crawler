@@ -20,10 +20,10 @@ async def aiodownload(cid, b_id, title):
     }
     data = json.dumps(data)
     url = f"http://dushu.baidu.com/api/pc/getChapterContent?data={data}"
-    async with  aiohttp.ClientSession() as session:
+    async with aiohttp.ClientSession() as session:
         async with session.get(url) as resp:
             dic = await resp.json()
-            async with aiofiles.open("database/novel/"+title+".txt", mode="w", encoding="utf-8") as f:
+            async with aiofiles.open("database/novel/" + title + ".txt", mode="w", encoding="utf-8") as f:
                 await f.write(dic["data"]["novel"]["content"])  # 把小说内容写入
 
 
