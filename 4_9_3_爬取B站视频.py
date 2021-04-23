@@ -1,11 +1,12 @@
 import requests
 from lxml import etree
 import re
+import os
 
 # https://www.bilibili.com/video/BV1X64y1m7jW
 if __name__ == '__main__':
-    # url = input("请输入网址栏的url：")
-    url = "https://www.bilibili.com/video/BV1X64y1m7jW"
+    url = input("请输入网址栏的url：")
+    # url = "https://www.bilibili.com/video/BV1X64y1m7jW"
     headers = {
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36",
         "Referer": "https://www.bilibili.com/video/"
@@ -22,8 +23,8 @@ if __name__ == '__main__':
     # 提取纯视频url，纯音频url
     url_str = html_obj.xpath('//script[contains(text(),"window.__playinfo__")]/text()')[0]
     # print(url_str)
-    vidoe_url = re.findall(r'"video":\[{"id":\d+,"baseUrl":"(.*?)",', url_str)[0]
-    # print(vidoe_url)
+    video_url = re.findall(r'"video":\[{"id":\d+,"baseUrl":"(.*?)",', url_str)[0]
+    # print(video_url)
     audio_url = re.findall(r'"audio":\[{"id":\d+,"baseUrl":"(.*?)",', url_str)[0]
     # print(audio_url)
 
@@ -33,14 +34,15 @@ if __name__ == '__main__':
         "Referer": url
     }
     # 发送请求
-    resp_video = requests.get(vidoe_url, headers=headers)
+    resp_video = requests.get(video_url, headers=headers)
     resp_audio = requests.get(audio_url, headers=headers)
     data_video = resp_video.content
     data_audio = resp_audio.content
     title_new = title_name + '|'
     title_new = title_name.strip()
-    # f = open(f"database/movie/{line}", mode="wb")
     with open(f"database/videos/{title_new}.mp4", mode='wb') as f:
         f.write(data_video)
     with open(f"database/videos/{title_new}.mp3", mode='wb') as f:
         f.write(data_audio)
+    # 拼接视频
+    # os.system('ffmpeg -i 1.mp4 -i 1.mp3 -c copy 2.mp4')
