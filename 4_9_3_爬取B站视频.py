@@ -3,7 +3,6 @@ from lxml import etree
 import re
 import os
 
-# https://www.bilibili.com/video/BV1X64y1m7jW
 if __name__ == '__main__':
     url = input("请输入网址栏的url：")
     # url = "https://www.bilibili.com/video/BV1X64y1m7jW"
@@ -38,11 +37,14 @@ if __name__ == '__main__':
     resp_audio = requests.get(audio_url, headers=headers)
     data_video = resp_video.content
     data_audio = resp_audio.content
-    title_new = title_name + '|'
-    title_new = title_name.strip()
+    title_new = title_name + '_temp'
     with open(f"database/videos/{title_new}.mp4", mode='wb') as f:
         f.write(data_video)
     with open(f"database/videos/{title_new}.mp3", mode='wb') as f:
         f.write(data_audio)
     # 拼接视频
-    # os.system('ffmpeg -i 1.mp4 -i 1.mp3 -c copy 2.mp4')
+    os.system(
+        f'ffmpeg -i "database/videos/{title_new}.mp4" -i "database/videos/{title_new}.mp3" -c copy "database/videos/{title_name}.mp4"')
+    # 删除临时视频
+    os.remove(f"database/videos/{title_new}.mp4")
+    os.remove(f"database/videos/{title_new}.mp3")
