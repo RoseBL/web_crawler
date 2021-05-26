@@ -13,11 +13,11 @@ def login():
     if web.find_element_by_partial_link_text('亲，请登录'):
         web.find_element_by_partial_link_text('亲，请登录').click()
         # 跳转到登录页面以后，提示用户扫码登录
-        print('请在6秒内扫码登录')
+        print('请在10秒内扫码登录')
         # //*[@id="fm-login-id"]  账户
         # //*[@id="fm-login-password"] 密码
         # //*[@id="login-form"]/div[4]/button 登录
-        time.sleep(6)
+        time.sleep(15)
         # 防止操作过快
         time.sleep(2)
         # 跳转到购物车
