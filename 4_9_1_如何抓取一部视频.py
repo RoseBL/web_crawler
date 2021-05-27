@@ -20,6 +20,7 @@
 
 import requests
 import re
+import os
 
 #
 # headers = {
@@ -58,6 +59,24 @@ import re
 #         f.close()
 #         resp3.close()
 #         n += 1
+n = 0
+lst = []
+for n in range(0, 39):
+    line = f"https://ccn.91p52.com//m3u8/469357/469357{n}.ts"
+    resp3 = requests.get(line)
+    f = open(f"database/movie/{n}.ts", mode="wb")
+    f.write(resp3.content)
+    lst.append(f"database/movie/{n}.ts")
+    f.close()
+    resp3.close()
+# lst = []
+# with open("database/movie/470292.m3u8", mode="r", encoding="utf-8") as f:
+#     for line in f:
+#         if line.startswith("#"):
+#             continue
+#         line = line.strip()
+#         lst.append(f"database/movie/{line}")
 
-
-
+s = "|".join(lst)  # 1.ts 2.ts 3.ts
+os.system(f'ffmpeg -i "concat:{s}" -c copy -absf aac_adtstoasc database/movie/movie.mp4')
+print("搞定!")
